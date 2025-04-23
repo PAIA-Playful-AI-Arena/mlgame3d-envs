@@ -5,7 +5,6 @@ from setuptools.command.install import install
 import mlagents_envs
 
 VERSION = mlagents_envs.__version__
-EXPECTED_TAG = mlagents_envs.__release_tag__
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -22,9 +21,9 @@ class VerifyVersionCommand(install):
     def run(self):
         tag = os.getenv("GITHUB_REF", "NO GITHUB TAG!").replace("refs/tags/", "")
 
-        if tag != EXPECTED_TAG:
-            info = "Git tag: {} does not match the expected tag of this app: {}".format(
-                tag, EXPECTED_TAG
+        if tag != VERSION:
+            info = "Git tag: {} does not match the version of this app: {}".format(
+                tag, VERSION
             )
             sys.exit(info)
 
@@ -34,36 +33,36 @@ with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="mlagents_envs",
+    name="mlgame3d-envs",
     version=VERSION,
     description="Unity Machine Learning Agents Interface",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Unity-Technologies/ml-agents",
-    author="Unity Technologies",
-    author_email="ML-Agents@unity3d.com",
+    url="https://github.com/PAIA-Playful-AI-Arena/mlgame3d-envs",
+    author="PAIA-Tech",
+    author_email="service@paia-tech.com",
     classifiers=[
         "Intended Audience :: Developers",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
         "License :: OSI Approved :: Apache Software License",
-        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
     ],
     packages=find_packages(
         exclude=["*.tests", "*.tests.*", "tests.*", "tests", "colabs", "*.ipynb"]
     ),
     zip_safe=False,
     install_requires=[
+        "packaging",
         "cloudpickle",
-        "grpcio>=1.11.0,<=1.48.2",
+        "grpcio>=1.11.0",
         "Pillow>=4.2.1",
         "protobuf>=3.6,<3.21",
         "pyyaml>=3.1.0",
         "gym>=0.21.0",
         "pettingzoo==1.15.0",
-        "numpy>=1.23.5,<1.24.0",
+        "numpy>=1.26,<2.0",
         "filelock>=3.4.0",
     ],
-    python_requires=">=3.10.1,<=3.10.12",
-    # TODO: Remove this once mypy stops having spurious setuptools issues.
+    python_requires=">=3.11",
     cmdclass={"verify": VerifyVersionCommand},  # type: ignore
 )
