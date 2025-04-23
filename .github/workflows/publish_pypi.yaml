@@ -41,4 +41,3 @@ jobs:
         packages-dir: ${{ matrix.package-path }}/dist/
         verbose: true
         print-hash: true
-        pypi-token: false
