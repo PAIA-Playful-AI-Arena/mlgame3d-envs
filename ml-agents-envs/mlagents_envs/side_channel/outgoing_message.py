@@ -46,10 +46,10 @@ class OutgoingMessage:
 
     def write_string(self, s: str) -> None:
         """
-        Append a string value. Internally, it will be encoded to ascii, and the
+        Append a string value. Internally, it will be encoded to utf-8, and the
         encoded length will also be written to the message.
         """
-        encoded_key = s.encode("ascii")
+        encoded_key = s.encode("utf-8")
         self.write_int32(len(encoded_key))
         self.buffer += encoded_key
 
