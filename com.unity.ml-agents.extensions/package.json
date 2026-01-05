@@ -1,11 +1,11 @@
 {
-  "name": "com.unity.ml-agents.extensions",
-  "displayName": "ML Agents Extensions",
+  "name": "com.paia.ml-agents.extensions",
+  "displayName": "PAIA ML Agents Extensions",
   "version": "0.6.1-preview",
-  "unity": "2023.2",
+  "unity": "6000.0",
   "description": "A source-only package for new features based on ML-Agents",
   "dependencies": {
-    "com.unity.ml-agents": "3.0.0",
+    "com.paia.ml-agents": "https://github.com/PAIA-Playful-AI-Arena/mlgame3d-envs.git?path=com.unity.ml-agents",
     "com.unity.modules.physics": "1.0.0"
   }
 }
