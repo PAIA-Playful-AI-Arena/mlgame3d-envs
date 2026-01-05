@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
-using Unity.Sentis;
+using Unity.InferenceEngine;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Sensors.Reflection;
@@ -1049,6 +1049,11 @@ namespace Unity.MLAgents
 
         void CleanupSensors()
         {
+            if (sensors == null)
+            {
+                return;
+            }
+
             // Dispose all attached sensor
             for (var i = 0; i < sensors.Count; i++)
             {

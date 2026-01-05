@@ -8,7 +8,7 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Inference;
 using Unity.MLAgents.Policies;
 using Unity.MLAgents.SideChannels;
-using Unity.Sentis;
+using Unity.InferenceEngine;
 
 /**
  * Welcome to Unity Machine Learning Agents (ML-Agents).
@@ -111,6 +111,7 @@ namespace Unity.MLAgents
 
         const int k_EditorTrainingPort = 5004;
 
+        const string k_HostCommandLineFlag = "--mlagents-host";
         const string k_PortCommandLineFlag = "--mlagents-port";
 
         // Lazy initializer pattern, see https://csharpindepth.com/articles/singleton#lazy
@@ -358,6 +359,36 @@ namespace Unity.MLAgents
                 {
                     DisableAutomaticStepping();
                 }
+            }
+        }
+
+        // Used to read Python-provided environment parameters
+        static string ReadHostFromArgs()
+        {
+            var args = Environment.GetCommandLineArgs();
+            var inputHost = "";
+            for (var i = 0; i < args.Length; i++)
+            {
+                if (args[i] == k_HostCommandLineFlag)
+                {
+                    inputHost = args[i + 1];
+                }
+            }
+
+            if (inputHost != "")
+            {
+                return inputHost;
+            }
+            else
+            {
+                // No arg passed, or malformed port number.
+#if UNITY_EDITOR
+                // Try connecting on the default editor port
+                return MLAgentsSettingsManager.Settings.ConnectTrainer ? MLAgentsSettingsManager.Settings.EditorHost : "localhost";
+#else
+                // This is an executable, so we don't try to connect.
+                return "localhost";
+#endif
             }
         }
 

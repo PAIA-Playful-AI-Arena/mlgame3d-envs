@@ -143,6 +143,7 @@ namespace Unity.MLAgents.Editor
                 EditorGUILayout.LabelField("Trainer Settings", EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
                 EditorGUILayout.PropertyField(m_SettingsObject.FindProperty("m_ConnectTrainer"), new GUIContent("Connect to Trainer"));
+                EditorGUILayout.PropertyField(m_SettingsObject.FindProperty("m_EditorHost"), new GUIContent("Editor Training Host"));
                 EditorGUILayout.PropertyField(m_SettingsObject.FindProperty("m_EditorPort"), new GUIContent("Editor Training Port"));
                 EditorGUI.indentLevel--;
                 if (EditorGUI.EndChangeCheck())

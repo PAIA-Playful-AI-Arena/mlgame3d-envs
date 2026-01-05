@@ -1,4 +1,4 @@
-using Unity.Sentis;
+using Unity.InferenceEngine;
 using System;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -231,7 +231,16 @@ namespace Unity.MLAgents.Policies
             switch (m_BehaviorType)
             {
                 case BehaviorType.HeuristicOnly:
-                    return new HeuristicPolicy(actuatorManager, actionSpec);
+                    // Create a HeuristicPolicy for decision making
+                    var heuristicPolicy = new HeuristicPolicy(actuatorManager, actionSpec);
+                    
+                    // If Communicator is connected, also create a RemotePolicy for communication
+                    if (Academy.Instance.IsCommunicatorOn)
+                    {
+                        var remotePolicy = new RemotePolicy(actionSpec, actuatorManager, FullyQualifiedBehaviorName);
+                        return new HybridPolicy(heuristicPolicy, remotePolicy);
+                    }
+                    return heuristicPolicy;
                 case BehaviorType.InferenceOnly:
                     {
                         if (m_Model == null)

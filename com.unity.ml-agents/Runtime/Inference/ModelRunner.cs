@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Unity.Sentis;
+using Unity.InferenceEngine;
 using UnityEngine.Profiling;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
@@ -87,24 +87,14 @@ namespace Unity.MLAgents.Inference
                     }
                 }
 
-                BackendType executionDevice;
-                // WorkerFactory.Type executionDevice;
-                switch (inferenceDevice)
+                var executionDevice = inferenceDevice switch
                 {
-                    case InferenceDevice.ComputeShader:
-                        executionDevice = BackendType.GPUCompute;
-                        break;
-                    case InferenceDevice.PixelShader:
-                        executionDevice = BackendType.GPUPixel;
-                        break;
-                    case InferenceDevice.Burst:
-                        executionDevice = BackendType.CPU;
-                        break;
-                    case InferenceDevice.Default: // fallthrough
-                    default:
-                        executionDevice = BackendType.CPU;
-                        break;
-                }
+                    InferenceDevice.ComputeShader => BackendType.GPUCompute,
+                    InferenceDevice.PixelShader => BackendType.GPUPixel,
+                    InferenceDevice.Burst => BackendType.CPU,
+                    // fallthrough
+                    _ => BackendType.CPU,
+                };
                 m_Engine = new Worker(sentisModel, executionDevice);
             }
             else

@@ -11,7 +11,7 @@ namespace Unity.MLAgents.SideChannels
     /// </summary>
     public static class SideChannelManager
     {
-        static Dictionary<Guid, SideChannel> s_RegisteredChannels = new Dictionary<Guid, SideChannel>();
+        static Dictionary<Guid, SideChannel> s_RegisteredChannels = new();
 
         struct CachedSideChannelMessage
         {
@@ -19,8 +19,7 @@ namespace Unity.MLAgents.SideChannels
             public byte[] Message;
         }
 
-        static readonly Queue<CachedSideChannelMessage> s_CachedMessages =
-            new Queue<CachedSideChannelMessage>();
+        static readonly Queue<CachedSideChannelMessage> s_CachedMessages = new();
 
         /// <summary>
         /// Register a side channel to begin sending and receiving messages. This method is

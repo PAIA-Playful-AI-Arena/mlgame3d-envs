@@ -10,6 +10,8 @@ namespace Unity.MLAgents
         [SerializeField]
         private bool m_ConnectTrainer = true;
         [SerializeField]
+        private string m_EditorHost = "localhost";
+        [SerializeField]
         private int m_EditorPort = 5004;
 
         public bool ConnectTrainer
@@ -28,6 +30,15 @@ namespace Unity.MLAgents
             set
             {
                 m_EditorPort = value;
+                OnChange();
+            }
+        }
+        public string EditorHost
+        {
+            get { return m_EditorHost; }
+            set
+            {
+                m_EditorHost = value;
                 OnChange();
             }
         }

@@ -69,7 +69,7 @@ namespace Unity.MLAgents.SideChannels
             }
 
             var strLength = ReadInt32();
-            var str = Encoding.ASCII.GetString(m_Reader.ReadBytes(strLength));
+            var str = Encoding.UTF8.GetString(m_Reader.ReadBytes(strLength));
             return str;
         }
 

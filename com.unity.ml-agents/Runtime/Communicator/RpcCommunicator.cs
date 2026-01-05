@@ -226,10 +226,10 @@ namespace Unity.MLAgents
             SendCommandEvent(rlInput.Command);
         }
 
-        UnityInputProto Initialize(int port, UnityOutputProto unityOutput, out UnityInputProto unityInput)
+        UnityInputProto Initialize(int port, UnityOutputProto unityOutput, out UnityInputProto unityInput, string host = "localhost")
         {
             m_IsOpen = true;
-            m_Channel = new Channel($"localhost:{port}", ChannelCredentials.Insecure);
+            m_Channel = new Channel($"{host}:{port}", ChannelCredentials.Insecure);
 
             m_Client = new UnityToExternalProto.UnityToExternalProtoClient(m_Channel);
             var result = m_Client.Exchange(WrapMessage(unityOutput, 200));

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Unity.Sentis;
+using Unity.InferenceEngine;
 using Unity.MLAgents.Inference;
 using UnityEngine;
-using DeviceType = Unity.Sentis.DeviceType;
 
 namespace Unity.MLAgents.Sensors
 {
